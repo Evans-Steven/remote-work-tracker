@@ -1,4 +1,4 @@
-function ApplicationTable({ applications }) {
+function ApplicationTable({ applications, onDeleteApplication }) {
     return (
         <section className="rounded-2xl border border-slate-800 bg-slate-900">
             <div className="border-b border-slate-800 p-5">
@@ -17,6 +17,7 @@ function ApplicationTable({ applications }) {
                             <th className="px-5 py-3 font-medium">Status</th>
                             <th className="px-5 py-3 font-medium">Date</th>
                             <th className="px-5 py-3 font-medium">Remote</th>
+                            <th className="px-5 py-3 font-medium">Actions</th>
                         </tr>
                     </thead>
 
@@ -33,6 +34,14 @@ function ApplicationTable({ applications }) {
                                 <td className="px-5 py-4 text-slate-400">{app.date}</td>
                                 <td className="px-5 py-4 text-slate-400">
                                     {app.remote ? "Yes" : "No"}
+                                </td>
+                                <td className="px-5 py-4">
+                                    <button
+                                        onClick={() => onDeleteApplication(app.id)}
+                                        className="rounded-lg border border-red-500/30 px-3 py-1 text-xs font-medium text-red-300 hover:bg-red-500/10"
+                                    >
+                                        Delete
+                                    </button>
                                 </td>
                             </tr>
                         ))}

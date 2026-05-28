@@ -24,6 +24,10 @@ function App() {
     setApplications([application, ...applications])
   }
 
+  function handleDeleteApplication(id) {
+    setApplications(applications.filter((app) => app.id !== id))
+  }
+
   const interviewCount = applications.filter(
     (app) => app.status === "Interviewing"
   ).length
@@ -50,12 +54,13 @@ function App() {
 
             <ApplicationTable
               applications={applications}
+              onDeleteApplication={handleDeleteApplication}
             />
           </div>
 
           <TaskPanel tasks={tasks} />
         </div>
-        
+
       </section>
     </main>
   )
