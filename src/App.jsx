@@ -1,16 +1,35 @@
+import { useState } from "react"
 import Header from "./components/Header"
 import StatCard from "./components/StatCard"
 import ApplicationTable from "./components/ApplicationTable"
 import TaskPanel from "./components/TaskPanel"
-import { applications, tasks } from "./data/mockData"
+import ApplicationForm from "./components/ApplicationForm"
+import { applications as initialApplications, tasks } from "./data/mockData"
 
 function App() {
+  const [applications, setApplications] = useState(initialApplications)
+
+  function handleAddApplication(newApplication) {
+    const application = {
+      id: Date.now(),
+      ...newApplication,
+      date: new Date().toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      }),
+      remote: true,
+    }
+
+    setApplications([application, ...applications])
+  }
+
   const interviewCount = applications.filter(
     (app) => app.status === "Interviewing"
   ).length
 
   const openTaskCount = tasks.filter((task) => !task.complete).length
-
+  
   return (
     <main className="min-h-screen bg-slate-950 text-white">
       <section className="mx-auto max-w-7xl px-6 py-8">
@@ -24,9 +43,19 @@ function App() {
         </div>
 
         <div className="mt-8 grid gap-6 lg:grid-cols-[2fr_1fr]">
-          <ApplicationTable applications={applications} />
+          <div className="space-y-6">
+            <ApplicationForm
+              onAddApplication={handleAddApplication}
+            />
+
+            <ApplicationTable
+              applications={applications}
+            />
+          </div>
+
           <TaskPanel tasks={tasks} />
         </div>
+        
       </section>
     </main>
   )
