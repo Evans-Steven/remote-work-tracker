@@ -63,6 +63,8 @@ function ApplicationForm({ onAddApplication }) {
                     <option>Saved</option>
                     <option>Applied</option>
                     <option>Interviewing</option>
+                    <option>Offer</option>
+                    <option>Rejected</option>
                 </select>
 
                 <button

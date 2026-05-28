@@ -1,4 +1,29 @@
 function ApplicationTable({ applications, onDeleteApplication }) {
+
+    function getStatusStyles(status) {
+        if (status === "Saved") {
+            return "bg-slate-500/10 text-slate-300"
+        }
+
+        if (status === "Applied") {
+            return "bg-sky-500/10 text-sky-300"
+        }
+
+        if (status === "Interviewing") {
+            return "bg-amber-500/10 text-amber-300"
+        }
+
+        if (status === "Offer") {
+            return "bg-emerald-500/10 text-emerald-300"
+        }
+
+        if (status === "Rejected") {
+            return "bg-red-500/10 text-red-300"
+        }
+
+        return "bg-slate-500/10 text-slate-300"
+    }
+
     return (
         <section className="rounded-2xl border border-slate-800 bg-slate-900">
             <div className="border-b border-slate-800 p-5">
@@ -27,7 +52,11 @@ function ApplicationTable({ applications, onDeleteApplication }) {
                                 <td className="px-5 py-4 font-medium">{app.company}</td>
                                 <td className="px-5 py-4 text-slate-300">{app.role}</td>
                                 <td className="px-5 py-4">
-                                    <span className="rounded-full bg-sky-500/10 px-3 py-1 text-xs font-medium text-sky-300">
+                                    <span
+                                        className={`rounded-full px-3 py-1 text-xs font-medium ${getStatusStyles(
+                                            app.status
+                                        )}`}
+                                    >
                                         {app.status}
                                     </span>
                                 </td>
