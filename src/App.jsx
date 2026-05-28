@@ -28,8 +28,20 @@ function App() {
     setApplications(applications.filter((app) => app.id !== id))
   }
 
+  const savedCount = applications.filter((app) => app.status === "Saved").length
+
+  const appliedCount = applications.filter(
+    (app) => app.status === "Applied"
+  ).length
+
   const interviewCount = applications.filter(
     (app) => app.status === "Interviewing"
+  ).length
+
+  const offerCount = applications.filter((app) => app.status === "Offer").length
+
+  const rejectedCount = applications.filter(
+    (app) => app.status === "Rejected"
   ).length
 
   const openTaskCount = tasks.filter((task) => !task.complete).length
@@ -39,10 +51,13 @@ function App() {
       <section className="mx-auto max-w-7xl px-6 py-8">
         <Header />
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <StatCard label="Applications" value={applications.length} />
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-7">
+          <StatCard label="Total" value={applications.length} />
+          <StatCard label="Saved" value={savedCount} />
+          <StatCard label="Applied" value={appliedCount} />
           <StatCard label="Interviews" value={interviewCount} />
-          <StatCard label="Offers" value="0" />
+          <StatCard label="Offers" value={offerCount} />
+          <StatCard label="Rejected" value={rejectedCount} />
           <StatCard label="Open Tasks" value={openTaskCount} />
         </div>
 
