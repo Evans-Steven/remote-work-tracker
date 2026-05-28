@@ -10,7 +10,7 @@ function Header() {
             </h1>
 
             <p className="mt-3 max-w-2x1 text-slate-400">
-                Track remote job applications, portfoliio tasks, follow-ups, and interview progress from one focused dashboard.
+                Track remote job applications, portfolio tasks, follow-ups, and interview progress from one focused dashboard.
             </p>
         </header>
     )
