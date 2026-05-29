@@ -1,13 +1,20 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Header from "./components/Header"
 import StatCard from "./components/StatCard"
 import ApplicationTable from "./components/ApplicationTable"
 import TaskPanel from "./components/TaskPanel"
 import ApplicationForm from "./components/ApplicationForm"
 import { applications as initialApplications, tasks } from "./data/mockData"
+import { use } from "react"
 
 function App() {
-  const [applications, setApplications] = useState(initialApplications)
+  const [applications, setApplications] = useState(() => {
+    const savedApplications = localStorage.getItem("applications")
+
+    return savedApplications
+      ? JSON.parse(savedApplications)
+      : initialApplications
+  })
 
   function handleAddApplication(newApplication) {
     const application = {
@@ -27,6 +34,13 @@ function App() {
   function handleDeleteApplication(id) {
     setApplications(applications.filter((app) => app.id !== id))
   }
+
+  useEffect(() => {
+    localStorage.setItem(
+      "applications",
+      JSON.stringify(applications)
+    )
+  }, [applications])
 
   const savedCount = applications.filter((app) => app.status === "Saved").length
 
