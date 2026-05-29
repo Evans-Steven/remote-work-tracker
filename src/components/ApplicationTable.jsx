@@ -1,29 +1,22 @@
-function ApplicationTable({ 
-    applications, 
-    onDeleteApplication, 
-    onUpdateApplicationStatus, 
-    }) {
+import { Fragment, useState } from "react"
+
+function ApplicationTable({
+    applications,
+    onDeleteApplication,
+    onUpdateApplicationStatus,
+}) {
+    const [expandedId, setExpandedId] = useState(null)
+
+    function toggleDetails(id) {
+        setExpandedId(expandedId === id ? null : id)
+    }
 
     function getStatusStyles(status) {
-        if (status === "Saved") {
-            return "bg-slate-500/10 text-slate-300"
-        }
-
-        if (status === "Applied") {
-            return "bg-sky-500/10 text-sky-300"
-        }
-
-        if (status === "Interviewing") {
-            return "bg-amber-500/10 text-amber-300"
-        }
-
-        if (status === "Offer") {
-            return "bg-emerald-500/10 text-emerald-300"
-        }
-
-        if (status === "Rejected") {
-            return "bg-red-500/10 text-red-300"
-        }
+        if (status === "Saved") return "bg-slate-500/10 text-slate-300"
+        if (status === "Applied") return "bg-sky-500/10 text-sky-300"
+        if (status === "Interviewing") return "bg-amber-500/10 text-amber-300"
+        if (status === "Offer") return "bg-emerald-500/10 text-emerald-300"
+        if (status === "Rejected") return "bg-red-500/10 text-red-300"
 
         return "bg-slate-500/10 text-slate-300"
     }
@@ -48,58 +41,89 @@ function ApplicationTable({
                             <th className="px-5 py-3 font-medium">Status</th>
                             <th className="px-5 py-3 font-medium">Date</th>
                             <th className="px-5 py-3 font-medium">Link</th>
+                            <th className="px-5 py-3 font-medium">Details</th>
                             <th className="px-5 py-3 font-medium">Actions</th>
                         </tr>
                     </thead>
 
                     <tbody>
                         {applications.map((app) => (
-                            <tr key={app.id} className="border-t border-slate-800">
-                                <td className="px-5 py-4 font-medium">{app.company}</td>
-                                <td className="px-5 py-4 text-slate-300">{app.role}</td>
-                                <td className="px-5 py-4 text-slate-300">{app.location || "-"}</td>
-                                <td className="px-5 py-4 text-slate-300">{app.salary || "-"}</td>
-                                <td className="px-5 py-4">
-                                    <select
-                                        value={app.status}
-                                        onChange={(e) =>
-                                            onUpdateApplicationStatus(app.id, e.target.value)
-                                        }
-                                        className={`rounded-full border border-transparent px-3 py-1 text-xs font-medium outline-none ${getStatusStyles(
-                                            app.status
-                                        )}`}
-                                    >
-                                        <option>Saved</option>
-                                        <option>Applied</option>
-                                        <option>Interviewing</option>
-                                        <option>Offer</option>
-                                        <option>Rejected</option>
-                                    </select>
-                                </td>
-                                <td className="px-5 py-4 text-slate-400">{app.date}</td>
-                                <td className="px-5 py-4">
-                                    {app.jobUrl ? (
-                                        <a
-                                            href={app.jobUrl}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="text-sky-400 hover:text-sky-300"
+                            <Fragment key={app.id}>
+                                <tr className="border-t border-slate-800">
+                                    <td className="px-5 py-4 font-medium">{app.company}</td>
+                                    <td className="px-5 py-4 text-slate-300">{app.role}</td>
+                                    <td className="px-5 py-4 text-slate-300">
+                                        {app.location || "-"}
+                                    </td>
+                                    <td className="px-5 py-4 text-slate-300">
+                                        {app.salary || "-"}
+                                    </td>
+                                    <td className="px-5 py-4">
+                                        <select
+                                            value={app.status}
+                                            onChange={(e) =>
+                                                onUpdateApplicationStatus(app.id, e.target.value)
+                                            }
+                                            className={`rounded-full border border-transparent px-3 py-1 text-xs font-medium outline-none ${getStatusStyles(
+                                                app.status
+                                            )}`}
                                         >
-                                            View
-                                        </a>
-                                    ) : (
-                                        "-"
-                                    )}
-                                </td>
-                                <td className="px-5 py-4">
-                                    <button
-                                        onClick={() => onDeleteApplication(app.id)}
-                                        className="rounded-lg border border-red-500/30 px-3 py-1 text-xs font-medium text-red-300 hover:bg-red-500/10"
-                                    >
-                                        Delete
-                                    </button>
-                                </td>
-                            </tr>
+                                            <option>Saved</option>
+                                            <option>Applied</option>
+                                            <option>Interviewing</option>
+                                            <option>Offer</option>
+                                            <option>Rejected</option>
+                                        </select>
+                                    </td>
+                                    <td className="px-5 py-4 text-slate-400">{app.date}</td>
+                                    <td className="px-5 py-4">
+                                        {app.jobUrl ? (
+                                            <a
+                                                href={app.jobUrl}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-sky-400 hover:text-sky-300"
+                                            >
+                                                View
+                                            </a>
+                                        ) : (
+                                            "-"
+                                        )}
+                                    </td>
+                                    <td className="px-5 py-4">
+                                        <button
+                                            onClick={() => toggleDetails(app.id)}
+                                            className="rounded-lg border border-sky-500/30 px-3 py-1 text-xs font-medium text-sky-300 hover:bg-sky-500/10"
+                                        >
+                                            {expandedId === app.id ? "Hide" : "Details"}
+                                        </button>
+                                    </td>
+                                    <td className="px-5 py-4">
+                                        <button
+                                            onClick={() => onDeleteApplication(app.id)}
+                                            className="rounded-lg border border-red-500/30 px-3 py-1 text-xs font-medium text-red-300 hover:bg-red-500/10"
+                                        >
+                                            Delete
+                                        </button>
+                                    </td>
+                                </tr>
+
+                                {expandedId === app.id && (
+                                    <tr className="border-t border-slate-800 bg-slate-950/40">
+                                        <td colSpan="9" className="px-5 py-4">
+                                            <div className="rounded-xl border border-slate-800 bg-slate-950 p-4">
+                                                <p className="text-sm font-medium text-slate-300">
+                                                    Notes
+                                                </p>
+
+                                                <p className="mt-2 text-sm text-slate-400">
+                                                    {app.notes || "No notes added yet."}
+                                                </p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                )}
+                            </Fragment>
                         ))}
                     </tbody>
                 </table>
