@@ -1,4 +1,4 @@
-function ApplicationTable({ applications, onDeleteApplication }) {
+function ApplicationTable({ applications, onDeleteApplication, onUpdateApplicationStatus, }) {
 
     function getStatusStyles(status) {
         if (status === "Saved") {
@@ -52,13 +52,21 @@ function ApplicationTable({ applications, onDeleteApplication }) {
                                 <td className="px-5 py-4 font-medium">{app.company}</td>
                                 <td className="px-5 py-4 text-slate-300">{app.role}</td>
                                 <td className="px-5 py-4">
-                                    <span
-                                        className={`rounded-full px-3 py-1 text-xs font-medium ${getStatusStyles(
+                                    <select
+                                        value={app.status}
+                                        onChange={(e) =>
+                                            onUpdateApplicationStatus(app.id, e.target.value)
+                                        }
+                                        className={`rounded-full border border-transparent px-3 py-1 text-xs font-medium outline-none ${getStatusStyles(
                                             app.status
                                         )}`}
                                     >
-                                        {app.status}
-                                    </span>
+                                        <option>Saved</option>
+                                        <option>Applied</option>
+                                        <option>Interviewing</option>
+                                        <option>Offer</option>
+                                        <option>Rejected</option>
+                                    </select>
                                 </td>
                                 <td className="px-5 py-4 text-slate-400">{app.date}</td>
                                 <td className="px-5 py-4 text-slate-400">

@@ -35,6 +35,14 @@ function App() {
     setApplications(applications.filter((app) => app.id !== id))
   }
 
+  function handleUpdateApplicationStatus(id, newStatus) {
+    setApplications(
+      applications.map((app) =>
+        app.id === id ? { ...app, status: newStatus } : app
+      )
+    )
+  }
+
   useEffect(() => {
     localStorage.setItem(
       "applications",
@@ -84,6 +92,7 @@ function App() {
             <ApplicationTable
               applications={applications}
               onDeleteApplication={handleDeleteApplication}
+              onUpdateApplicationStatus={handleUpdateApplicationStatus}
             />
           </div>
 
