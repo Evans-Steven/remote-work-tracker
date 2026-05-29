@@ -15,6 +15,9 @@ function App() {
       : initialApplications
   })
 
+  const [searchTerm, setSearchTerm] = useState("")
+  const [statusFilter, setStatusFilter] = useState("All")
+
   function handleAddApplication(newApplication) {
     const application = {
       id: Date.now(),
@@ -66,6 +69,17 @@ function App() {
   ).length
 
   const openTaskCount = tasks.filter((task) => !task.complete).length
+
+  const filteredApplications = applications.filter((app) => {
+    const matchesSearch =
+      app.company.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      app.role.toLowerCase().includes(searchTerm.toLowerCase())
+
+    const matchesStatus =
+      statusFilter === "All" || app.status === statusFilter
+
+    return matchesSearch && matchesStatus
+  })
   
   return (
     <main className="min-h-screen bg-slate-950 text-white">
@@ -88,8 +102,35 @@ function App() {
               onAddApplication={handleAddApplication}
             />
 
+            <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
+              <h2 className="text-xl font-semibold">Search & Filter</h2>
+
+              <div className="mt-4 grid gap-4 md:grid-cols-[2fr_1fr]">
+                <input
+                  type="text"
+                  placeholder="Search company or role..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="rounded-xl border border-slate-700 bg-slate-950 px-4 py-3"
+                />
+
+                <select
+                  value={statusFilter}
+                  onChange={(e) => setStatusFilter(e.target.value)}
+                  className="rounded-xl border border-slate-700 bg-slate-950 px-4 py-3"
+                >
+                  <option>All</option>
+                  <option>Saved</option>
+                  <option>Applied</option>
+                  <option>Interviewing</option>
+                  <option>Offer</option>
+                  <option>Rejected</option>
+                </select>
+              </div>
+            </div>
+
             <ApplicationTable
-              applications={applications}
+              applications={filteredApplications}
               onDeleteApplication={handleDeleteApplication}
               onUpdateApplicationStatus={handleUpdateApplicationStatus}
             />
