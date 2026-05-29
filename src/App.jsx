@@ -4,7 +4,9 @@ import StatCard from "./components/StatCard"
 import ApplicationTable from "./components/ApplicationTable"
 import TaskPanel from "./components/TaskPanel"
 import ApplicationForm from "./components/ApplicationForm"
-import { applications as initialApplications, tasks } from "./data/mockData"
+import { applications as initialApplications,
+         tasks as initialTasks, 
+        } from "./data/mockData"
 
 function App() {
   const [applications, setApplications] = useState(() => {
@@ -17,6 +19,12 @@ function App() {
 
   const [searchTerm, setSearchTerm] = useState("")
   const [statusFilter, setStatusFilter] = useState("All")
+
+  const [tasks, setTasks] = useState(() => {
+    const savedTasks = localStorage.getItem("tasks")
+
+    return savedTasks ? JSON.parse(savedTasks) : initialTasks
+  })
 
   function handleAddApplication(newApplication) {
     const application = {
@@ -45,12 +53,51 @@ function App() {
     )
   }
 
+  function handleToggleTask(id) {
+    setTasks(
+      tasks.map((task) =>
+        task.id === id
+          ? { ...task, complete: !task.complete }
+          : task
+      )
+    )
+  }
+
+  function handleAddTask(title) {
+    const newTask = {
+      id: Date.now(),
+      title,
+      complete: false,
+    }
+
+    setTasks([newTask, ...tasks])
+  }
+
+  function handleEditTask(id, updatedTitle) {
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, title: updatedTitle } : task
+      )
+    )
+  }
+
+  function handleDeleteTask(id) {
+    setTasks(tasks.filter((task) => task.id !== id))
+  }
+
   useEffect(() => {
     localStorage.setItem(
       "applications",
       JSON.stringify(applications)
     )
   }, [applications])
+
+  useEffect(() => {
+    localStorage.setItem(
+      "tasks",
+      JSON.stringify(tasks)
+    )
+  }, [tasks])
 
   const savedCount = applications.filter((app) => app.status === "Saved").length
 
@@ -136,7 +183,13 @@ function App() {
             />
           </div>
 
-          <TaskPanel tasks={tasks} />
+          <TaskPanel 
+            tasks={tasks}
+            onToggleTask={handleToggleTask}
+            onAddTask={handleAddTask}
+            onEditTask={handleEditTask}
+            onDeleteTask={handleDeleteTask}
+          />
         </div>
 
       </section>
