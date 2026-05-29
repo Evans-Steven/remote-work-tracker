@@ -4,6 +4,10 @@ function ApplicationForm({ onAddApplication }) {
     const [formData, setFormData] = useState({
         company: "",
         role: "",
+        location: "",
+        salary: "",
+        jobUrl: "",
+        notes: "",
         status: "Saved",
     })
 
@@ -24,6 +28,10 @@ function ApplicationForm({ onAddApplication }) {
         setFormData({
             company: "",
             role: "",
+            location: "",
+            salary: "",
+            jobUrl: "",
+            notes: "",
             status: "Saved",
         })
     }
@@ -51,6 +59,42 @@ function ApplicationForm({ onAddApplication }) {
                     placeholder="Role Title"
                     value={formData.role}
                     onChange={handleChange}
+                    className="rounded-xl border border-slate-700 bg-slate-950 px-4 py-3"
+                />
+
+                <input
+                    type="text"
+                    name="location"
+                    placeholder="Location / Remote"
+                    value={formData.location}
+                    onChange={handleChange}
+                    className="rounded-xl border border-slate-700 bg-slate-950 px-4 py-3"
+                />
+
+                <input
+                    type="text"
+                    name="salary"
+                    placeholder="Salary Range"
+                    value={formData.salary}
+                    onChange={handleChange}
+                    className="rounded-xl border border-slate-700 bg-slate-950 px-4 py-3"
+                />
+
+                <input
+                    type="url"
+                    name="jobUrl"
+                    placeholder="Job Posting URL"
+                    value={formData.jobUrl}
+                    onChange={handleChange}
+                    className="rounded-xl border border-slate-700 bg-slate-950 px-4 py-3"
+                />
+
+                <textarea
+                    name="notes"
+                    placeholder="Notes"
+                    value={formData.notes}
+                    onChange={handleChange}
+                    rows="3"
                     className="rounded-xl border border-slate-700 bg-slate-950 px-4 py-3"
                 />
 

@@ -1,4 +1,8 @@
-function ApplicationTable({ applications, onDeleteApplication, onUpdateApplicationStatus, }) {
+function ApplicationTable({ 
+    applications, 
+    onDeleteApplication, 
+    onUpdateApplicationStatus, 
+    }) {
 
     function getStatusStyles(status) {
         if (status === "Saved") {
@@ -39,9 +43,11 @@ function ApplicationTable({ applications, onDeleteApplication, onUpdateApplicati
                         <tr>
                             <th className="px-5 py-3 font-medium">Company</th>
                             <th className="px-5 py-3 font-medium">Role</th>
+                            <th className="px-5 py-3 font-medium">Location</th>
+                            <th className="px-5 py-3 font-medium">Salary</th>
                             <th className="px-5 py-3 font-medium">Status</th>
                             <th className="px-5 py-3 font-medium">Date</th>
-                            <th className="px-5 py-3 font-medium">Remote</th>
+                            <th className="px-5 py-3 font-medium">Link</th>
                             <th className="px-5 py-3 font-medium">Actions</th>
                         </tr>
                     </thead>
@@ -51,6 +57,8 @@ function ApplicationTable({ applications, onDeleteApplication, onUpdateApplicati
                             <tr key={app.id} className="border-t border-slate-800">
                                 <td className="px-5 py-4 font-medium">{app.company}</td>
                                 <td className="px-5 py-4 text-slate-300">{app.role}</td>
+                                <td className="px-5 py-4 text-slate-300">{app.location || "-"}</td>
+                                <td className="px-5 py-4 text-slate-300">{app.salary || "-"}</td>
                                 <td className="px-5 py-4">
                                     <select
                                         value={app.status}
@@ -69,8 +77,19 @@ function ApplicationTable({ applications, onDeleteApplication, onUpdateApplicati
                                     </select>
                                 </td>
                                 <td className="px-5 py-4 text-slate-400">{app.date}</td>
-                                <td className="px-5 py-4 text-slate-400">
-                                    {app.remote ? "Yes" : "No"}
+                                <td className="px-5 py-4">
+                                    {app.jobUrl ? (
+                                        <a
+                                            href={app.jobUrl}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-sky-400 hover:text-sky-300"
+                                        >
+                                            View
+                                        </a>
+                                    ) : (
+                                        "-"
+                                    )}
                                 </td>
                                 <td className="px-5 py-4">
                                     <button
