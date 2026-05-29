@@ -142,21 +142,53 @@ function App() {
         <Header />
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-7">
-          <StatCard label="Total" value={applications.length} />
-          <StatCard label="Saved" value={savedCount} />
-          <StatCard label="Applied" value={appliedCount} />
-          <StatCard label="Interviews" value={interviewCount} />
-          <StatCard label="Offers" value={offerCount} />
-          <StatCard label="Rejected" value={rejectedCount} />
+          <StatCard
+            label="Total"
+            value={applications.length}
+            onClick={() => setStatusFilter("All")}
+            active={statusFilter === "All"}
+          />
+
+          <StatCard
+            label="Saved"
+            value={savedCount}
+            onClick={() => setStatusFilter("Saved")}
+            active={statusFilter === "Saved"}
+          />
+
+          <StatCard
+            label="Applied"
+            value={appliedCount}
+            onClick={() => setStatusFilter("Applied")}
+            active={statusFilter === "Applied"}
+          />
+
+          <StatCard
+            label="Interviews"
+            value={interviewCount}
+            onClick={() => setStatusFilter("Interviewing")}
+            active={statusFilter === "Interviewing"}
+          />
+
+          <StatCard
+            label="Offers"
+            value={offerCount}
+            onClick={() => setStatusFilter("Offer")}
+            active={statusFilter === "Offer"}
+          />
+
+          <StatCard
+            label="Rejected"
+            value={rejectedCount}
+            onClick={() => setStatusFilter("Rejected")}
+            active={statusFilter === "Rejected"}
+          />
+
           <StatCard label="Open Tasks" value={openTaskCount} />
         </div>
 
         <div className="mt-8 grid gap-6 lg:grid-cols-[2fr_1fr]">
           <div className="space-y-6">
-            <ApplicationForm
-              onAddApplication={handleAddApplication}
-            />
-
             <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
               <h2 className="text-xl font-semibold">Search & Filter</h2>
 
@@ -190,6 +222,11 @@ function App() {
               onUpdateApplicationStatus={handleUpdateApplicationStatus}
               onUpdateApplicationNotes={handleUpdateApplicationNotes}
             />
+
+            <ApplicationForm
+              onAddApplication={handleAddApplication}
+            />
+            
           </div>
 
           <TaskPanel 
