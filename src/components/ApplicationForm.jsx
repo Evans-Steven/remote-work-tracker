@@ -8,6 +8,8 @@ function ApplicationForm({ onAddApplication }) {
         salary: "",
         jobUrl: "",
         notes: "",
+        interviewDate: "",
+        interviewTime: "",
         status: "Saved",
     })
 
@@ -32,6 +34,8 @@ function ApplicationForm({ onAddApplication }) {
             salary: "",
             jobUrl: "",
             notes: "",
+            interviewDate: "",
+            interviewTime: "",
             status: "Saved",
         })
     }
@@ -85,6 +89,22 @@ function ApplicationForm({ onAddApplication }) {
                     name="jobUrl"
                     placeholder="Job Posting URL"
                     value={formData.jobUrl}
+                    onChange={handleChange}
+                    className="rounded-xl border border-slate-700 bg-slate-950 px-4 py-3"
+                />
+
+                <input
+                    type="date"
+                    name="interviewDate"
+                    value={formData.interviewDate}
+                    onChange={handleChange}
+                    className="rounded-xl border border-slate-700 bg-slate-950 px-4 py-3"
+                />
+
+                <input
+                    type="time"
+                    name="interviewTime"
+                    value={formData.interviewTime}
                     onChange={handleChange}
                     className="rounded-xl border border-slate-700 bg-slate-950 px-4 py-3"
                 />

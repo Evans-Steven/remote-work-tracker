@@ -26,6 +26,8 @@ function App() {
     return savedTasks ? JSON.parse(savedTasks) : initialTasks
   })
 
+  const [sortOption, setSortOption] = useState("newest")
+
   function handleAddApplication(newApplication) {
     const application = {
       id: Date.now(),
@@ -170,6 +172,10 @@ function App() {
 
   const openTaskCount = tasks.filter((task) => !task.complete).length
 
+  const upcomingInterviewCount = applications.filter(
+    (app) => app.interviewDate
+  ).length
+
   const interviewRate =
     applications.length > 0
       ? Math.round((interviewCount / applications.length) * 100)
@@ -180,16 +186,40 @@ function App() {
       ? Math.round((offerCount / applications.length) * 100)
       : 0
 
-  const filteredApplications = applications.filter((app) => {
-    const matchesSearch =
-      app.company.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      app.role.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredApplications = applications
+    .filter((app) => {
+      const matchesSearch =
+        app.company.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        app.role.toLowerCase().includes(searchTerm.toLowerCase())
 
-    const matchesStatus =
-      statusFilter === "All" || app.status === statusFilter
+      const matchesStatus =
+        statusFilter === "All" || app.status === statusFilter
 
-    return matchesSearch && matchesStatus
-  })
+      return matchesSearch && matchesStatus
+    })
+    .sort((a, b) => {
+      if (sortOption === "newest") {
+        return b.id - a.id
+      }
+
+      if (sortOption === "oldest") {
+        return a.id - b.id
+      }
+
+      if (sortOption === "company-az") {
+        return a.company.localeCompare(b.company)
+      }
+
+      if (sortOption === "company-za") {
+        return b.company.localeCompare(a.company)
+      }
+
+      if (sortOption === "status") {
+        return a.status.localeCompare(b.status)
+      }
+
+      return 0
+    })
   
   return (
     <main className="min-h-screen bg-slate-950 text-white">
@@ -257,7 +287,7 @@ function App() {
                 </button>
               </div>
 
-              <div className="mt-4 grid gap-4 md:grid-cols-[2fr_1fr]">
+              <div className="mt-4 grid gap-4 md:grid-cols-[2fr_1fr_1fr]">
                 <input
                   type="text"
                   placeholder="Search company or role..."
@@ -277,6 +307,17 @@ function App() {
                   <option>Interviewing</option>
                   <option>Offer</option>
                   <option>Rejected</option>
+                </select>
+                <select
+                  value={sortOption}
+                  onChange={(e) => setSortOption(e.target.value)}
+                  className="rounded-xl border border-slate-700 bg-slate-950 px-4 py-3"
+                >
+                  <option value="newest">Newest First</option>
+                  <option value="oldest">Oldest First</option>
+                  <option value="company-az">Company A-Z</option>
+                  <option value="company-za">Company Z-A</option>
+                  <option value="status">Status</option>
                 </select>
               </div>
             </div>
@@ -313,6 +354,16 @@ function App() {
                   <p className="text-sm text-slate-400">Active Leads</p>
                   <p className="text-lg font-bold">
                     {savedCount + appliedCount + interviewCount}
+                  </p>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <p className="text-sm text-slate-400">
+                    Upcoming Interviews
+                  </p>
+
+                  <p className="text-lg font-bold">
+                    {upcomingInterviewCount}
                   </p>
                 </div>
               </div>

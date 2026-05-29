@@ -94,7 +94,7 @@ function ApplicationTable({
                                 {expandedId === app.id && (
                                     <tr className="border-t border-slate-800 bg-slate-950/40">
                                         <td colSpan="9" className="px-5 py-4">
-                                            <div className="grid gap-4 md:grid-cols-3">
+                                            <div className="grid gap-4 md:grid-cols-4">
                                                 <div className="rounded-xl border border-slate-800 bg-slate-900/60 p-4">
                                                     <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
                                                         Location
@@ -130,6 +130,18 @@ function ApplicationTable({
                                                     ) : (
                                                         <p className="mt-2 text-sm text-slate-300">Not provided</p>
                                                     )}
+                                                </div>
+
+                                                <div className="rounded-xl border border-slate-800 bg-slate-900/60 p-4">
+                                                    <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
+                                                        Interview
+                                                    </p>
+
+                                                    <p className="mt-2 text-sm text-slate-300">
+                                                        {app.interviewDate
+                                                            ? `${app.interviewDate}${app.interviewTime ? ` at ${app.interviewTime}` : ""}`
+                                                            : "Not scheduled"}
+                                                    </p>
                                                 </div>
                                             </div>
 
