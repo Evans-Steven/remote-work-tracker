@@ -5,7 +5,6 @@ import ApplicationTable from "./components/ApplicationTable"
 import TaskPanel from "./components/TaskPanel"
 import ApplicationForm from "./components/ApplicationForm"
 import { applications as initialApplications, tasks } from "./data/mockData"
-import { use } from "react"
 
 function App() {
   const [applications, setApplications] = useState(() => {
