@@ -93,6 +93,51 @@ function App() {
     setTasks(tasks.filter((task) => task.id !== id))
   }
 
+  function handleExportApplications() {
+    const headers = [
+      "Company",
+      "Role",
+      "Status",
+      "Date",
+      "Location",
+      "Salary",
+      "Job URL",
+      "Notes",
+    ]
+
+    const rows = applications.map((app) => [
+      app.company,
+      app.role,
+      app.status,
+      app.date,
+      app.location || "",
+      app.salary || "",
+      app.jobUrl || "",
+      app.notes || "",
+    ])
+
+    const csvContent = [headers, ...rows]
+      .map((row) =>
+        row
+          .map((value) => `"${String(value).replaceAll('"', '""')}"`)
+          .join(",")
+      )
+      .join("\n")
+
+    const blob = new Blob([csvContent], {
+      type: "text/csv;charset=utf-8;",
+    })
+
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement("a")
+
+    link.href = url
+    link.download = "career-command-center-applications.csv"
+    link.click()
+
+    URL.revokeObjectURL(url)
+  }
+
   useEffect(() => {
     localStorage.setItem(
       "applications",
@@ -124,6 +169,16 @@ function App() {
   ).length
 
   const openTaskCount = tasks.filter((task) => !task.complete).length
+
+  const interviewRate =
+    applications.length > 0
+      ? Math.round((interviewCount / applications.length) * 100)
+      : 0
+
+  const offerRate =
+    applications.length > 0
+      ? Math.round((offerCount / applications.length) * 100)
+      : 0
 
   const filteredApplications = applications.filter((app) => {
     const matchesSearch =
@@ -190,7 +245,17 @@ function App() {
         <div className="mt-8 grid gap-6 lg:grid-cols-[2fr_1fr]">
           <div className="space-y-6">
             <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
-              <h2 className="text-xl font-semibold">Search & Filter</h2>
+              <div className="flex items-center justify-between gap-4">
+                <h2 className="text-xl font-semibold">Search & Filter</h2>
+
+                <button
+                  type="button"
+                  onClick={handleExportApplications}
+                  className="rounded-lg border border-emerald-500/30 px-3 py-1.5 text-xs font-medium text-emerald-300 hover:bg-emerald-500/10"
+                >
+                  Export CSV
+                </button>
+              </div>
 
               <div className="mt-4 grid gap-4 md:grid-cols-[2fr_1fr]">
                 <input
@@ -229,13 +294,38 @@ function App() {
             
           </div>
 
-          <TaskPanel 
-            tasks={tasks}
-            onToggleTask={handleToggleTask}
-            onAddTask={handleAddTask}
-            onEditTask={handleEditTask}
-            onDeleteTask={handleDeleteTask}
-          />
+          <div className="space-y-6">
+            <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
+              <h2 className="text-lg font-semibold">Career Analytics</h2>
+
+              <div className="mt-4 space-y-4">
+                <div className="flex items-center justify-between">
+                  <p className="text-sm text-slate-400">Interview Rate</p>
+                  <p className="text-lg font-bold">{interviewRate}%</p>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <p className="text-sm text-slate-400">Offer Rate</p>
+                  <p className="text-lg font-bold">{offerRate}%</p>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <p className="text-sm text-slate-400">Active Leads</p>
+                  <p className="text-lg font-bold">
+                    {savedCount + appliedCount + interviewCount}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <TaskPanel
+              tasks={tasks}
+              onToggleTask={handleToggleTask}
+              onAddTask={handleAddTask}
+              onEditTask={handleEditTask}
+              onDeleteTask={handleDeleteTask}
+            />
+          </div>
         </div>
 
       </section>
