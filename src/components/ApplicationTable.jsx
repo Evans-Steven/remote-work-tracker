@@ -4,8 +4,12 @@ function ApplicationTable({
     applications,
     onDeleteApplication,
     onUpdateApplicationStatus,
+    onUpdateApplicationNotes,
 }) {
     const [expandedId, setExpandedId] = useState(null)
+
+    const [editingNotesId, setEditingNotesId] = useState(null)
+    const [editingNotes, setEditingNotes] = useState("")
 
     function toggleDetails(id) {
         setExpandedId(expandedId === id ? null : id)
@@ -116,9 +120,58 @@ function ApplicationTable({
                                                     Notes
                                                 </p>
 
-                                                <p className="mt-2 text-sm text-slate-400">
-                                                    {app.notes || "No notes added yet."}
-                                                </p>
+                                                {editingNotesId === app.id ? (
+                                                    <div className="mt-3 space-y-3">
+                                                        <textarea
+                                                            value={editingNotes}
+                                                            onChange={(e) => setEditingNotes(e.target.value)}
+                                                            rows="4"
+                                                            className="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-200"
+                                                        />
+
+                                                        <div className="flex gap-2">
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => {
+                                                                    onUpdateApplicationNotes(app.id, editingNotes)
+                                                                    setEditingNotesId(null)
+                                                                    setEditingNotes("")
+                                                                }}
+                                                                className="rounded-lg border border-emerald-500/30 px-3 py-1 text-xs font-medium text-emerald-300 hover:bg-emerald-500/10"
+                                                            >
+                                                                Save Notes
+                                                            </button>
+
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => {
+                                                                    setEditingNotesId(null)
+                                                                    setEditingNotes("")
+                                                                }}
+                                                                className="rounded-lg border border-slate-600 px-3 py-1 text-xs font-medium text-slate-300 hover:bg-slate-800"
+                                                            >
+                                                                Cancel
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                ) : (
+                                                    <div className="mt-3 space-y-3">
+                                                        <p className="text-sm text-slate-400">
+                                                            {app.notes || "No notes added yet."}
+                                                        </p>
+
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => {
+                                                                setEditingNotesId(app.id)
+                                                                setEditingNotes(app.notes || "")
+                                                            }}
+                                                            className="rounded-lg border border-sky-500/30 px-3 py-1 text-xs font-medium text-sky-300 hover:bg-sky-500/10"
+                                                        >
+                                                            Edit Notes
+                                                        </button>
+                                                    </div>
+                                                )}
                                             </div>
                                         </td>
                                     </tr>

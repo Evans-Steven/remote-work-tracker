@@ -53,6 +53,14 @@ function App() {
     )
   }
 
+  function handleUpdateApplicationNotes(id, updatedNotes) {
+    setApplications(
+      applications.map((app) =>
+        app.id === id ? { ...app, notes: updatedNotes } : app
+      )
+    )
+  }
+
   function handleToggleTask(id) {
     setTasks(
       tasks.map((task) =>
@@ -180,6 +188,7 @@ function App() {
               applications={filteredApplications}
               onDeleteApplication={handleDeleteApplication}
               onUpdateApplicationStatus={handleUpdateApplicationStatus}
+              onUpdateApplicationNotes={handleUpdateApplicationNotes}
             />
           </div>
 
