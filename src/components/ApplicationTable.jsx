@@ -40,11 +40,8 @@ function ApplicationTable({
                         <tr>
                             <th className="px-5 py-3 font-medium">Company</th>
                             <th className="px-5 py-3 font-medium">Role</th>
-                            <th className="px-5 py-3 font-medium">Location</th>
-                            <th className="px-5 py-3 font-medium">Salary</th>
                             <th className="px-5 py-3 font-medium">Status</th>
                             <th className="px-5 py-3 font-medium">Date</th>
-                            <th className="px-5 py-3 font-medium">Link</th>
                             <th className="px-5 py-3 font-medium">Details</th>
                             <th className="px-5 py-3 font-medium">Actions</th>
                         </tr>
@@ -56,12 +53,6 @@ function ApplicationTable({
                                 <tr className="border-t border-slate-800">
                                     <td className="px-5 py-4 font-medium">{app.company}</td>
                                     <td className="px-5 py-4 text-slate-300">{app.role}</td>
-                                    <td className="px-5 py-4 text-slate-300">
-                                        {app.location || "-"}
-                                    </td>
-                                    <td className="px-5 py-4 text-slate-300">
-                                        {app.salary || "-"}
-                                    </td>
                                     <td className="px-5 py-4">
                                         <select
                                             value={app.status}
@@ -81,25 +72,13 @@ function ApplicationTable({
                                     </td>
                                     <td className="px-5 py-4 text-slate-400">{app.date}</td>
                                     <td className="px-5 py-4">
-                                        {app.jobUrl ? (
-                                            <a
-                                                href={app.jobUrl}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="text-sky-400 hover:text-sky-300"
-                                            >
-                                                View
-                                            </a>
-                                        ) : (
-                                            "-"
-                                        )}
-                                    </td>
-                                    <td className="px-5 py-4">
                                         <button
                                             onClick={() => toggleDetails(app.id)}
                                             className="rounded-lg border border-sky-500/30 px-3 py-1 text-xs font-medium text-sky-300 hover:bg-sky-500/10"
                                         >
-                                            {expandedId === app.id ? "Hide" : "Details"}
+                                            {expandedId === app.id
+                                                ? "▾ Hide"
+                                                : "▸ Details"}
                                         </button>
                                     </td>
                                     <td className="px-5 py-4">
@@ -115,10 +94,64 @@ function ApplicationTable({
                                 {expandedId === app.id && (
                                     <tr className="border-t border-slate-800 bg-slate-950/40">
                                         <td colSpan="9" className="px-5 py-4">
-                                            <div className="rounded-xl border border-slate-800 bg-slate-950 p-4">
-                                                <p className="text-sm font-medium text-slate-300">
-                                                    Notes
-                                                </p>
+                                            <div className="grid gap-4 md:grid-cols-3">
+                                                <div className="rounded-xl border border-slate-800 bg-slate-900/60 p-4">
+                                                    <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
+                                                        Location
+                                                    </p>
+                                                    <p className="mt-2 text-sm text-slate-300">
+                                                        {app.location || "Not provided"}
+                                                    </p>
+                                                </div>
+
+                                                <div className="rounded-xl border border-slate-800 bg-slate-900/60 p-4">
+                                                    <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
+                                                        Salary
+                                                    </p>
+                                                    <p className="mt-2 text-sm text-slate-300">
+                                                        {app.salary || "Not provided"}
+                                                    </p>
+                                                </div>
+
+                                                <div className="rounded-xl border border-slate-800 bg-slate-900/60 p-4">
+                                                    <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
+                                                        Job Link
+                                                    </p>
+
+                                                    {app.jobUrl ? (
+                                                        <a
+                                                            href={app.jobUrl}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="mt-2 inline-block text-sm font-medium text-sky-400 hover:text-sky-300"
+                                                        >
+                                                            View Posting
+                                                        </a>
+                                                    ) : (
+                                                        <p className="mt-2 text-sm text-slate-300">Not provided</p>
+                                                    )}
+                                                </div>
+                                            </div>
+
+                                            <div className="mt-4 rounded-xl border border-slate-800 bg-slate-900/60 p-4">
+                                                <div className="flex items-center justify-between gap-4">
+                                                    <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
+                                                        Notes
+                                                    </p>
+
+                                                    {editingNotesId !== app.id && (
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => {
+                                                                setEditingNotesId(app.id)
+                                                                setEditingNotes(app.notes || "")
+                                                            }}
+                                                            className="rounded-lg border border-sky-500/30 px-3 py-1 text-xs font-medium text-sky-300 hover:bg-sky-500/10"
+                                                        >
+                                                            Edit Notes
+                                                        </button>
+                                                    )}
+                                                </div>
 
                                                 {editingNotesId === app.id ? (
                                                     <div className="mt-3 space-y-3">
@@ -155,22 +188,9 @@ function ApplicationTable({
                                                         </div>
                                                     </div>
                                                 ) : (
-                                                    <div className="mt-3 space-y-3">
-                                                        <p className="text-sm text-slate-400">
-                                                            {app.notes || "No notes added yet."}
-                                                        </p>
-
-                                                        <button
-                                                            type="button"
-                                                            onClick={() => {
-                                                                setEditingNotesId(app.id)
-                                                                setEditingNotes(app.notes || "")
-                                                            }}
-                                                            className="rounded-lg border border-sky-500/30 px-3 py-1 text-xs font-medium text-sky-300 hover:bg-sky-500/10"
-                                                        >
-                                                            Edit Notes
-                                                        </button>
-                                                    </div>
+                                                    <p className="mt-3 text-sm text-slate-400">
+                                                        {app.notes || "No notes added yet."}
+                                                    </p>
                                                 )}
                                             </div>
                                         </td>
