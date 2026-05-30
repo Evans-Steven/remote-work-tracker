@@ -224,11 +224,11 @@ function App() {
 const filteredCount = filteredApplications.length
   
   return (
-    <main className="min-h-screen bg-slate-950 text-white">
-      <section className="mx-auto max-w-7xl px-6 py-8">
+    <main className="min-h-screen bg-slate-950 text-white overflow-x-hidden">
+      <section className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8">
         <Header />
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-7">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-7">
           <StatCard
             label="Total"
             value={applications.length}
@@ -274,22 +274,22 @@ const filteredCount = filteredApplications.length
           <StatCard label="Open Tasks" value={openTaskCount} />
         </div>
 
-        <div className="mt-8 grid gap-6 lg:grid-cols-[2fr_1fr]">
-          <div className="space-y-6">
-            <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
-              <div className="flex items-center justify-between gap-4">
+        <div className="mt-6 grid gap-6 lg:grid-cols-[2fr_1fr]">
+          <div className="min-w-0 space-y-6">
+            <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4 sm:p-5">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <h2 className="text-xl font-semibold">Search & Filter</h2>
 
                 <button
                   type="button"
                   onClick={handleExportApplications}
-                  className="rounded-lg border border-emerald-500/30 px-3 py-1.5 text-xs font-medium text-emerald-300 hover:bg-emerald-500/10"
+                  className="w-full rounded-lg border border-emerald-500/30 px-3 py-2 text-xs font-medium text-emerald-300 hover:bg-emerald-500/10 sm:w-auto sm:py-1.5"
                 >
                   Export CSV
                 </button>
               </div>
 
-              <div className="mt-4 grid gap-4 md:grid-cols-[2fr_1fr_1fr]">
+              <div className="mt-4 grid gap-3 md:grid-cols-[2fr_1fr_1fr]">
                 <input
                   type="text"
                   placeholder="Search company or role..."
@@ -339,8 +339,8 @@ const filteredCount = filteredApplications.length
             
           </div>
 
-          <div className="space-y-6">
-            <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
+          <div className="min-w-0 space-y-6">
+            <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4 sm:p-5">
               <h2 className="text-lg font-semibold">Career Analytics</h2>
 
               <div className="mt-4 space-y-4">

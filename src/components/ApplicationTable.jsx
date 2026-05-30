@@ -29,7 +29,7 @@ function ApplicationTable({
 
     return (
         <section className="rounded-2xl border border-slate-800 bg-slate-900">
-            <div className="border-b border-slate-800 p-5">
+            <div className="border-b border-slate-800 p4 sm:p-5">
                 <h2 className="text-xl font-semibold">Job Applications</h2>
                 <div className="mt-1 flex items-center justify-between">
                     <p className="text-sm text-slate-400">
@@ -42,9 +42,12 @@ function ApplicationTable({
                 </div>
             </div>
 
-            <div className="overflow-x-auto">
-                <table className="w-full text-left text-sm">
-                    <thead className="bg-slate-950/60 text-slate-400">
+            <div className="overflow-x-auto max-w-full">
+                <table
+                    className={`w-full text-left text-sm ${applications.length > 0 ? "min-w-[700px]" : ""
+                        }`}
+                >
+                    <thead className="hidden bg-slate-950/60 text-slate-400 sm:table-header-group">
                         <tr>
                             <th className="px-5 py-3 font-medium">Company</th>
                             <th className="px-5 py-3 font-medium">Role</th>
