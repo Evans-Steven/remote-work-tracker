@@ -1,16 +1,105 @@
-# React + Vite
+# Career Command Center
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Career Command Center is a centralized job-search management dashboard that helps users organize applications, interviews, tasks, and career progress in a single interface.
 
-Currently, two official plugins are available:
+## Technologies Used
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- React
+- JavaScript (ES6+)
+- Vite
+- Tailwind CSS
+- Browser Local Storage API
 
-## React Compiler
+## Project Highlights
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Built and deployed a complete React application
+- Designed a responsive dashboard interface
+- Implemented full CRUD functionality
+- Added local storage persistence
+- Created search, filtering, and sorting systems
+- Built interview tracking and career analytics features
 
-## Expanding the ESLint configuration
+## Live Demo
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+https://remote-work-tracker-pi.vercel.app/
+
+## Repository
+
+https://github.com/Evans-Steven/remote-work-tracker
+
+## Features
+
+### Application Tracking
+
+- Create and delete applications
+- Update application status
+- Store notes for each application
+- Track interview dates and times
+- View expanded application details
+
+### Career Analytics
+
+- Total applications
+- Interview rate
+- Offer rate
+- Active leads
+- Upcoming interviews
+
+### Search & Organization
+
+- Search by company or role
+- Filter by status
+- Sort applications
+  - Newest First
+  - Oldest First
+  - Company A–Z
+  - Company Z–A
+  - Status
+
+### Task Management
+
+- Create tasks
+- Edit tasks
+- Complete tasks
+- Delete tasks
+
+### Data Management
+
+- Local storage persistence
+- CSV export
+- Empty state handling
+
+## What I Learned
+
+This project helped me strengthen my understanding of:
+
+- React state management
+- Component architecture
+- CRUD operations
+- Local storage persistence
+- Conditional rendering
+- Search and filtering
+- Data sorting
+- Responsive dashboard design
+- Debugging React applications
+
+## Future Improvements
+
+- User authentication
+- Cloud database integration
+- Multi-device synchronization
+- Calendar integration
+- Interview reminders
+
+## Installation
+
+```bash
+git clone https://github.com/Evans-Steven/remote-work-tracker.git
+cd remote-work-tracker
+npm install
+npm run dev
+```
+
+## Author
+
+Built by Steven Evans
