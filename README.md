@@ -1,6 +1,6 @@
 # Career Command Center
 
-Career Command Center is a centralized job-search management dashboard that helps users organize applications, interviews, tasks, and career progress in a single interface.
+Career Command Center is a centralized job-search management dashboard built with React and Tailwind CSS. Users can track applications, schedule interviews, manage career tasks, analyze job-search performance, and export application data from a single responsive interface.
 
 ## Technologies Used
 
@@ -10,6 +10,33 @@ Career Command Center is a centralized job-search management dashboard that help
 - Tailwind CSS
 - Browser Local Storage API
 
+## Live Demo
+
+https://remote-work-tracker-pi.vercel.app/
+
+
+## Repository
+
+https://github.com/Evans-Steven/remote-work-tracker
+
+## Screenshots
+
+### Dashboard Overview
+
+![Dashboard Overview](./screenshots/dashboard-overview.png)
+
+### Application Tracking & Interview Management
+
+![Application Details](./screenshots/application-details.png)
+
+### Add Application Workflow
+
+![Application Form](./screenshots/application-form.png)
+
+### Mobile Responsive Design
+
+![Mobile View](./screenshots/mobile-view.png)
+
 ## Project Highlights
 
 - Built and deployed a complete React application
@@ -18,14 +45,6 @@ Career Command Center is a centralized job-search management dashboard that help
 - Added local storage persistence
 - Created search, filtering, and sorting systems
 - Built interview tracking and career analytics features
-
-## Live Demo
-
-https://remote-work-tracker-pi.vercel.app/
-
-## Repository
-
-https://github.com/Evans-Steven/remote-work-tracker
 
 ## Features
 
