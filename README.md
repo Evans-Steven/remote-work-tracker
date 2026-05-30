@@ -35,7 +35,7 @@ https://github.com/Evans-Steven/remote-work-tracker
 
 ### Mobile Responsive Design
 
-![Mobile View](./screenshots/mobile-view.png)
+![Mobile View](./screenshots/mobile-view.jpg)
 
 ## Project Highlights
 
