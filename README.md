@@ -23,19 +23,19 @@ https://github.com/Evans-Steven/remote-work-tracker
 
 ### Dashboard Overview
 
-![Dashboard Overview](./screenshots/dashboard-overview.png)
+<img src="./screenshots/dashboard-overview.png" width="1000">
 
 ### Application Tracking & Interview Management
 
-![Application Details](./screenshots/application-details.png)
+<img src="./screenshots/application-details.png" width="1000">
 
 ### Add Application Workflow
 
-![Application Form](./screenshots/application-form.png)
+<img src="./screenshots/application-form.png" width="1000">
 
 ### Mobile Responsive Design
 
-![Mobile View](./screenshots/mobile-view.jpg)
+<img src="./screenshots/mobile-screenshot.jpg" width="350">
 
 ## Project Highlights
 
