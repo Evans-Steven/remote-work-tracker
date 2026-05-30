@@ -14,7 +14,7 @@ function App() {
 
     return savedApplications
       ? JSON.parse(savedApplications)
-      : initialApplications
+      : []
   })
 
   const [searchTerm, setSearchTerm] = useState("")
@@ -23,7 +23,7 @@ function App() {
   const [tasks, setTasks] = useState(() => {
     const savedTasks = localStorage.getItem("tasks")
 
-    return savedTasks ? JSON.parse(savedTasks) : initialTasks
+    return savedTasks ? JSON.parse(savedTasks) : []
   })
 
   const [sortOption, setSortOption] = useState("newest")
@@ -220,6 +220,8 @@ function App() {
 
       return 0
     })
+
+const filteredCount = filteredApplications.length
   
   return (
     <main className="min-h-screen bg-slate-950 text-white">
@@ -324,6 +326,8 @@ function App() {
 
             <ApplicationTable
               applications={filteredApplications}
+              hasApplications={applications.length > 0}
+              filteredCount={filteredCount}
               onDeleteApplication={handleDeleteApplication}
               onUpdateApplicationStatus={handleUpdateApplicationStatus}
               onUpdateApplicationNotes={handleUpdateApplicationNotes}

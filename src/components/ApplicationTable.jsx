@@ -2,6 +2,8 @@ import { Fragment, useState } from "react"
 
 function ApplicationTable({
     applications,
+    hasApplications,
+    filteredCount,
     onDeleteApplication,
     onUpdateApplicationStatus,
     onUpdateApplicationNotes,
@@ -29,9 +31,15 @@ function ApplicationTable({
         <section className="rounded-2xl border border-slate-800 bg-slate-900">
             <div className="border-b border-slate-800 p-5">
                 <h2 className="text-xl font-semibold">Job Applications</h2>
-                <p className="mt-1 text-sm text-slate-400">
-                    Keep track of roles, companies, dates, and current status.
-                </p>
+                <div className="mt-1 flex items-center justify-between">
+                    <p className="text-sm text-slate-400">
+                        Keep track of roles, companies, dates, and current status.
+                    </p>
+
+                    <p className="text-xs text-slate-500">
+                        {filteredCount} result{filteredCount !== 1 ? "s" : ""}
+                    </p>
+                </div>
             </div>
 
             <div className="overflow-x-auto">
@@ -48,7 +56,29 @@ function ApplicationTable({
                     </thead>
 
                     <tbody>
-                        {applications.map((app) => (
+                        {applications.length === 0 ? (
+                            <tr>
+                                <td
+                                    colSpan="6"
+                                    className="px-6 py-8 text-center text-slate-400"
+                                >
+                                    <div className="space-y-3">
+                                        <p className="text-4xl">🔍</p>
+
+                                        <p className="text-lg font-medium">
+                                            {hasApplications ? "No matching applications" : "No applications yet"}
+                                        </p>
+                                    </div>
+
+                                    <p className="mt-2 text-sm">
+                                        {hasApplications
+                                            ? "Try adjusting your search, filter, or sort options."
+                                            : "Add your first application to start tracking your career progress."}
+                                    </p>
+                                </td>
+                            </tr>
+                        ) : (
+                            applications.map((app) => (
                             <Fragment key={app.id}>
                                 <tr className="border-t border-slate-800">
                                     <td className="px-5 py-4 font-medium">{app.company}</td>
@@ -93,7 +123,7 @@ function ApplicationTable({
 
                                 {expandedId === app.id && (
                                     <tr className="border-t border-slate-800 bg-slate-950/40">
-                                        <td colSpan="9" className="px-5 py-4">
+                                        <td colSpan="6" className="px-5 py-4">
                                             <div className="grid gap-4 md:grid-cols-4">
                                                 <div className="rounded-xl border border-slate-800 bg-slate-900/60 p-4">
                                                     <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
@@ -209,7 +239,7 @@ function ApplicationTable({
                                     </tr>
                                 )}
                             </Fragment>
-                        ))}
+                        )))}
                     </tbody>
                 </table>
             </div>
